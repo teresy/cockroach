@@ -120,11 +120,9 @@ func (pt *pendingTxn) getDependentsSet() map[uuid.UUID]struct{} {
 		if id := push.req.PusherTxn.ID; id != (uuid.UUID{}) {
 			set[id] = struct{}{}
 			push.mu.Lock()
-			if push.mu.dependents != nil {
-				for txnID := range push.mu.dependents {
+			for txnID := range push.mu.dependents {
 					set[txnID] = struct{}{}
 				}
-			}
 			push.mu.Unlock()
 		}
 	}
